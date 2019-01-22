@@ -41,7 +41,7 @@ namespace DatingApp.API.Controllers
                 return BadRequest("Username already exists.");
             var userToCreate = new User 
             {
-                Name = userForRegisterDTO.Username
+                Username = userForRegisterDTO.Username
             };
             var createdUser = await _repository.Register(userToCreate, userForRegisterDTO.Password);
             return StatusCode(201);
@@ -56,7 +56,7 @@ namespace DatingApp.API.Controllers
                 var claims = new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier,userFromRepository.Id.ToString()),
-                    new Claim(ClaimTypes.Name,userFromRepository.Name)
+                    new Claim(ClaimTypes.Name,userFromRepository.Username)
                 };
                 var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(_configuration.GetSection("AppSettings:Token").Value));
